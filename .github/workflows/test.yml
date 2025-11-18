@@ -1,12 +1,32 @@
-name: Simple Test Workflow
+name: CI workflow
 
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  validate_yaml:
+  build:
     runs-on: ubuntu-latest
+    container:
+      image: python:3.9-slim
     steps:
-      - name: Workflow Parser Check
-        run: echo "The file loaded successfully."
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Lint with flake8
+        run: |
+          pip install flake8  # Ensure flake8 is installed inside the container
+          flake8 service --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 service --count --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Run unit tests with nose
+        run: |
+          pip install nose nose-cov spec  # Ensure nose/spec are installed
+          nosetests -v --with-spec --spec-color --with-coverage --cover-package=service
