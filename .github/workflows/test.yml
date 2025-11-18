@@ -1,0 +1,12 @@
+name: Simple Test Workflow
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  validate_yaml:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Workflow Parser Check
+        run: echo "The file loaded successfully."
