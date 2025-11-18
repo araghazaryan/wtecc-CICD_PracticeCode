@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Verify Workflow Parser
-        run: echo "The workflow parser is working!"
+        run: echo "The workflow parser is  working!"
