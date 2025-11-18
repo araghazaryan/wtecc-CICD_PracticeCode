@@ -1,5 +1,5 @@
-name: test
-on: 
+name: test2
+on:
   push:
     branches: [ "main" ]
   pull_request:
