@@ -8,11 +8,14 @@ on:
 
 jobs:
   build:
-    # 1. 'container' is a property of the 'build' job
+    # 1. This is the missing piece! Specify the runner OS.
+    runs-on: ubuntu-latest 
+
+    # 2. The container will run on the specified runner
     container:
       image: python:3.9-slim
     
-    # 2. 'steps' must be a sibling of 'container' (same indentation as 'container')
+    # 3. Steps is now correctly indented as a sibling to runs-on and container
     steps:
       - name: Checkout
         uses: actions/checkout@v4
